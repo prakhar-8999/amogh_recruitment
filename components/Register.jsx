@@ -6,6 +6,7 @@ const {TextArea} = Input;
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
   const onFinish = (values) => {
     console.log("Success:", values);
     setLoading(true);
@@ -14,6 +15,7 @@ const Register = () => {
       .then((res) => {
         setLoading(false);
         message.success(res.data.message);
+        form.resetFields();
       })
       .catch((err) => {
         message.error(err.response.data.message);
@@ -46,6 +48,7 @@ const Register = () => {
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               layout="vertical"
+              form={form}
             >
               <Form.Item
                 label="Name"
