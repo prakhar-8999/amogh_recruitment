@@ -1,10 +1,24 @@
 "use client";
-import {Button, Form, Input} from "antd";
+import client from "@/request/axios";
+import {Button, Form, Input, message} from "antd";
+import {useState} from "react";
 const {TextArea} = Input;
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
   const onFinish = (values) => {
     console.log("Success:", values);
+    setLoading(true);
+    client
+      .post("/register", values)
+      .then((res) => {
+        setLoading(false);
+        message.success(res.data.message);
+      })
+      .catch((err) => {
+        message.error(err.response.data.message);
+        setLoading(false);
+      });
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -60,7 +74,7 @@ const Register = () => {
               </Form.Item>
               <Form.Item
                 label="Phone"
-                name="phone"
+                name="phone_number"
                 rules={[
                   {
                     min: 10,
@@ -95,6 +109,8 @@ const Register = () => {
                 type="primary"
                 htmlType="submit"
                 className="bg-indigo-600 hover:!bg-indigo-800 w-full"
+                loading={loading}
+                disabled={loading}
               >
                 Submit
               </Button>
