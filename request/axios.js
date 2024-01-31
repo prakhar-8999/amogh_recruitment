@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-  baseURL: "https://6dd72743d93f51555d0a24bea844d3e8.serveo.net/api/user",
+  baseURL: "https://e125d7ca9dd3fe2062cf5b0c01792ad5.serveo.net/api/user",
 });
 
 export default client;
